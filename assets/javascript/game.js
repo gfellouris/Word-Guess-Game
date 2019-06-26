@@ -25,6 +25,7 @@ document.onkeyup = function(event) {
       "alert alert-danger text-center";
     guessesRemaining = 12;
     lettersGuessed = [];
+    alert("Game over!  Sorry too many guesses.");
   } else {
     if (
       letter.match(lettersAllowed) &&
