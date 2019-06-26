@@ -1,9 +1,15 @@
 /* Standard styles */
 body {
   background-color: black;
+  height: 960px;
 }
 
 /* Bootstrap customized styles */
 .jumbotron {
   background-color: black;
+}
+
+/* Classes - Custom */
+.container-columns {
+  padding: 20px;
 }
