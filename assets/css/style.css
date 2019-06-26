@@ -1,0 +1,9 @@
+/* Standard styles */
+body {
+  background-color: black;
+}
+
+/* Bootstrap customized styles */
+.jumbotron {
+  background-color: black;
+}
