@@ -23,6 +23,10 @@ document.onkeyup = function(event) {
       "Game over! Press any key to start new game.";
     document.getElementById("gameBanner").className =
       "alert alert-danger text-center";
+    document.getElementById("gameImage").src = "assets/images/loser.jpg";
+    // <img src="assets/images/wordguess-header.jpg" alt="80's Word Guess!" class="mx-auto d-block img-fluid" />
+
+    // Initialize variable to start game again
     guessesRemaining = 12;
     lettersGuessed = [];
     alert("Game over!  Sorry too many guesses.");
