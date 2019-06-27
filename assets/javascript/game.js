@@ -5,8 +5,10 @@ var guessesRemaining = 12;
 var newGame = true;
 var winsCount = 0;
 var found = false;
+var bandSingers = [];
 
-var wordPicked = pickWord();
+bandSingers = ["madonna", "genesis", "blonde", "prince"];
+var wordPicked = pickWord(bandSingers);
 
 console.log("wordPicked=" + wordPicked);
 var wordPickedArray = wordPicked.split("");
@@ -14,9 +16,15 @@ var wordPlaceholderChar = "-";
 var wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
 var wordPlaceholderArray = wordPlaceholder.split("");
 
-////////////////////////////////////// FUNCTIONS START //////////////////////////////////////////////////
+//================================= FUNCTIONS START =================================
 // function to initialize game elements
 function initGame() {
+  wordPicked = pickWord(bandSingers);
+  wordPickedArray = wordPicked.split("");
+  wordPlaceholderChar = "-";
+  wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
+  wordPlaceholderArray = wordPlaceholder.split("");
+  console.log("word picked from initGame=" + wordPicked);
   wordPlaceholderChar = "-";
   wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
   wordPlaceholderArray = wordPlaceholder.split("");
@@ -39,7 +47,8 @@ function checkWinner(arrCompare1, arrCompare2) {
     alert("You won!");
     winsCount++;
     document.getElementById("winsCount").innerHTML = winsCount;
-    document.getElementById("gameImage").src = "assets/images/genesis.jpg";
+    // document.getElementById("gameImage").src = "assets/images/genesis.jpg";
+    document.getElementById("gameImage").src = "assets/images/" + wordPicked + ".jpg";
     document.getElementById("gameBanner").innerHTML = "You won! Awesome!!!!";
     // document.getElementById("lettersGuessed").innerHTML = "";
     document.getElementById("gameBanner").className =
@@ -67,15 +76,13 @@ function checkGuess(str) {
   }
 }
 
-function pickWord() {
-  var bandSinger = {
-    name: "madonna",
-    song: "Holiday",
-    image: "assets/images/madonna.jpg"
-  };
-  return bandSinger["name"];
+function pickWord(arr) {
+  randomSelection = Math.floor(Math.random() * arr.length);
+  console.log("Random#=" + randomSelection);
+  console.log("word selected=" + bandSingers[randomSelection]);
+  return bandSingers[randomSelection];
 }
-////////////////////////////////////// FUNCTIONS END //////////////////////////////////////////////////
+//================================= FUNCTIONS END =================================
 
 document.onkeyup = function(event) {
   // Captures the key press, converts it to lowercase, and saves it to a variable.
@@ -112,8 +119,10 @@ document.onkeyup = function(event) {
         tagOpen = "<strike>";
         tagClose = "</strike>";
       }
-      lettersGuessedOutput.push(tagOpen + letter  + tagClose)
-      document.getElementById("lettersGuessed").innerHTML = lettersGuessedOutput;
+      lettersGuessedOutput.push(tagOpen + letter + tagClose);
+      document.getElementById(
+        "lettersGuessed"
+      ).innerHTML = lettersGuessedOutput;
       document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
     }
   }
