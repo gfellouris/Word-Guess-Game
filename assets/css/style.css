@@ -13,3 +13,8 @@ body {
 .container-columns {
   padding: 20px;
 }
+
+/* IDs - Custom */
+#lettersGuessed {
+    letter-spacing: 5px;
+}
