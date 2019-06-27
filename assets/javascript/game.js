@@ -1,10 +1,14 @@
 var lettersGuessed = [];
+var lettersGuessedOutput = [];
 var lettersAllowed = /^[A-Za-z]+$/;
 var guessesRemaining = 12;
 var newGame = true;
 var winsCount = 0;
+var found = false;
 
-var wordPicked = "genesis";
+var wordPicked = pickWord();
+
+console.log("wordPicked=" + wordPicked);
 var wordPickedArray = wordPicked.split("");
 var wordPlaceholderChar = "-";
 var wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
@@ -19,6 +23,7 @@ function initGame() {
 
   guessesRemaining = 12;
   lettersGuessed = [];
+  lettersGuessedOutput = [];
   document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
   document.getElementById("gameImage").src = "assets/images/hangman_game.jpg";
   document.getElementById("gameBanner").innerHTML = "Game started.  Good Luck!";
@@ -27,7 +32,7 @@ function initGame() {
   document.getElementById("gameBanner").className =
     "alert alert-warning text-center";
   newGame = true;
-};
+}
 
 function checkWinner(arrCompare1, arrCompare2) {
   if (arrCompare1.join("") === arrCompare2.join("")) {
@@ -41,19 +46,35 @@ function checkWinner(arrCompare1, arrCompare2) {
       "alert alert-success text-center";
     newGame = true;
   }
-};
+}
 
 // lets check if the letter guessed is found in the word we picked.
 function checkGuess(str) {
+  found = false;
+
   for (var i = 0; i < wordPickedArray.length; i++) {
     if (wordPickedArray[i] === str) {
       wordPlaceholderArray[i] = str;
       console.log("wordPlaceholderArray=" + wordPlaceholderArray);
       wordPlaceholderString = wordPlaceholderArray.join("");
       document.getElementById("lettersFound").innerHTML = wordPlaceholderString;
+      found = true;
     }
   }
-};
+
+  if (found === false) {
+    guessesRemaining--;
+  }
+}
+
+function pickWord() {
+  var bandSinger = {
+    name: "madonna",
+    song: "Holiday",
+    image: "assets/images/madonna.jpg"
+  };
+  return bandSinger["name"];
+}
 ////////////////////////////////////// FUNCTIONS END //////////////////////////////////////////////////
 
 document.onkeyup = function(event) {
@@ -80,12 +101,20 @@ document.onkeyup = function(event) {
       letter.length === 1 &&
       lettersGuessed.indexOf(letter) === -1
     ) {
-      lettersGuessed.push(letter);
-      guessesRemaining--;
-      document.getElementById("lettersGuessed").innerHTML = lettersGuessed;
-      document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
       checkGuess(letter);
       checkWinner(wordPickedArray, wordPlaceholderArray);
+      lettersGuessed.push(letter);
+
+      if (found) {
+        tagOpen = "<font color=green>";
+        tagClose = "</font>";
+      } else {
+        tagOpen = "<strike>";
+        tagClose = "</strike>";
+      }
+      lettersGuessedOutput.push(tagOpen + letter  + tagClose)
+      document.getElementById("lettersGuessed").innerHTML = lettersGuessedOutput;
+      document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
     }
   }
 };
