@@ -10,7 +10,7 @@ var bandSingers = [];
 bandSingers = ["madonna", "genesis", "blonde", "prince"];
 var wordPicked = pickWord(bandSingers);
 
-console.log("wordPicked=" + wordPicked);
+// console.log("wordPicked=" + wordPicked);
 var wordPickedArray = wordPicked.split("");
 var wordPlaceholderChar = "-";
 var wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
@@ -24,7 +24,7 @@ function initGame() {
   wordPlaceholderChar = "-";
   wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
   wordPlaceholderArray = wordPlaceholder.split("");
-  console.log("word picked from initGame=" + wordPicked);
+  //   console.log("word picked from initGame=" + wordPicked);
   wordPlaceholderChar = "-";
   wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
   wordPlaceholderArray = wordPlaceholder.split("");
@@ -47,10 +47,9 @@ function checkWinner(arrCompare1, arrCompare2) {
     alert("You won!");
     winsCount++;
     document.getElementById("winsCount").innerHTML = winsCount;
-    // document.getElementById("gameImage").src = "assets/images/genesis.jpg";
-    document.getElementById("gameImage").src = "assets/images/" + wordPicked + ".jpg";
+    document.getElementById("gameImage").src =
+      "assets/images/" + wordPicked + ".jpg";
     document.getElementById("gameBanner").innerHTML = "You won! Awesome!!!!";
-    // document.getElementById("lettersGuessed").innerHTML = "";
     document.getElementById("gameBanner").className =
       "alert alert-success text-center";
     newGame = true;
@@ -64,7 +63,7 @@ function checkGuess(str) {
   for (var i = 0; i < wordPickedArray.length; i++) {
     if (wordPickedArray[i] === str) {
       wordPlaceholderArray[i] = str;
-      console.log("wordPlaceholderArray=" + wordPlaceholderArray);
+      //   console.log("wordPlaceholderArray=" + wordPlaceholderArray);
       wordPlaceholderString = wordPlaceholderArray.join("");
       document.getElementById("lettersFound").innerHTML = wordPlaceholderString;
       found = true;
@@ -78,8 +77,8 @@ function checkGuess(str) {
 
 function pickWord(arr) {
   randomSelection = Math.floor(Math.random() * arr.length);
-  console.log("Random#=" + randomSelection);
-  console.log("word selected=" + bandSingers[randomSelection]);
+  //   console.log("Random#=" + randomSelection);
+  //   console.log("word selected=" + bandSingers[randomSelection]);
   return bandSingers[randomSelection];
 }
 //================================= FUNCTIONS END =================================

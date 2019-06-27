@@ -15,11 +15,12 @@ body {
 }
 
 .panelBorder {
-    border: 1px solid;
-    margin: 5px;
+  border: 1px solid;
+  margin: 5px;
 }
 
 /* IDs - Custom */
 #lettersGuessed {
-    letter-spacing: 5px;
+  letter-spacing: 5px;
+  word-wrap: break-word;
 }
