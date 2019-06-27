@@ -29,29 +29,32 @@
     <div class="container bg-secondary text-light">
         <div class="row">
             <div class="col-md-6 container-columns">
-                <img id="gameImage" src="assets/images/hangman_game.jpg" alt="80's Word Guess!" class="mx-auto d-block img-fluid" />
+                <img id="gameImage" src="assets/images/hangman_game.jpg" alt="80's Word Guess!"
+                    class="mx-auto d-block img-fluid" />
             </div>
             <div class="col-md-6">
 
                 <div class="text-center container-columns">
-                    <p>Press any key to get started!</p>
+                    <p>Press any key from A to Z!</p>
 
-                    <p><span id="winsCount"></span> Wins.</p>
+                    <p><span id="winsCount" class="bg-success"></span> Wins.</p>
 
-                    <p>Current Word</p>
-                    <p id="lettersFound"></p>
+                    <div class="panelBorder">Current Word
+                        <p id="lettersFound" class="bg-dark"></p>
+                    </div>
 
-                    <p>Number of Guesses Remaining</p>
-                    <div id="guessesRemaining"></div>
+                    <div class="panelBorder">Number of Guesses Remaining
+                        <div id="guessesRemaining" class="bg-dark"></div>
+                    </div>
 
-                    <p>Letters Already Guessed</p>
-                    <div id="lettersGuessed"></div>
-                    </d>
+                    <div class="panelBorder">Letters Already Guessed
+                        <div id="lettersGuessed" class="bg-dark"></div>
+                    </div>
+
                 </div>
             </div>
-        </div>
 
-        <script src="assets/javascript/game.js"></script>
+            <script src="assets/javascript/game.js"></script>
 </body>
 
 </html>

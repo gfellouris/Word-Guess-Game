@@ -3,6 +3,7 @@ var lettersAllowed = /^[A-Za-z]+$/;
 var guessesRemaining = 12;
 var newGame = true;
 var winsCount = 0;
+
 var wordPicked = "genesis";
 var wordPickedArray = wordPicked.split("");
 var wordPlaceholderChar = "-";
@@ -25,35 +26,34 @@ function initGame() {
   document.getElementById("lettersGuessed").innerHTML = "";
   document.getElementById("gameBanner").className =
     "alert alert-warning text-center";
-
   newGame = true;
 };
 
 function checkWinner(arrCompare1, arrCompare2) {
-    if (arrCompare1.join("") === arrCompare2.join("")) {
-      alert("You won!");
-      winsCount++;
-      document.getElementById("winsCount").innerHTML = winsCount;
-      document.getElementById("gameImage").src = "assets/images/genesis.jpg";
-      document.getElementById("gameBanner").innerHTML = "You won! Awesome!!!!";
-      // document.getElementById("lettersGuessed").innerHTML = "";
-      document.getElementById("gameBanner").className =
-        "alert alert-success text-center";
-      newGame = true;
+  if (arrCompare1.join("") === arrCompare2.join("")) {
+    alert("You won!");
+    winsCount++;
+    document.getElementById("winsCount").innerHTML = winsCount;
+    document.getElementById("gameImage").src = "assets/images/genesis.jpg";
+    document.getElementById("gameBanner").innerHTML = "You won! Awesome!!!!";
+    // document.getElementById("lettersGuessed").innerHTML = "";
+    document.getElementById("gameBanner").className =
+      "alert alert-success text-center";
+    newGame = true;
+  }
+};
+
+// lets check if the letter guessed is found in the word we picked.
+function checkGuess(str) {
+  for (var i = 0; i < wordPickedArray.length; i++) {
+    if (wordPickedArray[i] === str) {
+      wordPlaceholderArray[i] = str;
+      console.log("wordPlaceholderArray=" + wordPlaceholderArray);
+      wordPlaceholderString = wordPlaceholderArray.join("");
+      document.getElementById("lettersFound").innerHTML = wordPlaceholderString;
     }
-  };
-  
-  // lets check if the letter guessed is found in the word we picked.
-  function checkGuess(str) {
-    for (var i = 0; i < wordPickedArray.length; i++) {
-      if (wordPickedArray[i] === str) {
-        wordPlaceholderArray[i] = str;
-        console.log("wordPlaceholderArray=" + wordPlaceholderArray);
-        wordPlaceholderString = wordPlaceholderArray.join("");
-        document.getElementById("lettersFound").innerHTML = wordPlaceholderString;
-      }
-    }
-  };
+  }
+};
 ////////////////////////////////////// FUNCTIONS END //////////////////////////////////////////////////
 
 document.onkeyup = function(event) {
@@ -71,10 +71,6 @@ document.onkeyup = function(event) {
     document.getElementById("gameBanner").className =
       "alert alert-danger text-center";
     document.getElementById("gameImage").src = "assets/images/loser.jpg";
-
-    // Initialize variable to start game again
-    // guessesRemaining = 12;
-    // lettersGuessed = [];
     alert("Game over!  Sorry too many guesses.");
     newGame = true;
   } else {
