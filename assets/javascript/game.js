@@ -1,20 +1,26 @@
+//================================= GLOBAL environment  START =================================
 var lettersGuessed = [];
 var lettersGuessedOutput = [];
-var lettersAllowed = /^[A-Za-z]+$/;
+var lettersAllowed = /^[A-Za-z]+$/; // RegEx to only allow input from A to Z or a to z
 var guessesRemaining = 12;
 var newGame = true;
 var winsCount = 0;
 var found = false;
-var bandSingers = [];
+var bandSingers = (bandSingers = ["madonna", "genesis", "blonde", "prince"]);
 
-bandSingers = ["madonna", "genesis", "blonde", "prince"];
+// Pick the word to start the first game
 var wordPicked = pickWord(bandSingers);
-
 // console.log("wordPicked=" + wordPicked);
+
+// Put each letter of the word inot an array
 var wordPickedArray = wordPicked.split("");
+
+// Next few lines sets up the placeholder for the word on the game board.
+// It will also be used to check against the chosen word to check if we have a winner
 var wordPlaceholderChar = "-";
 var wordPlaceholder = wordPlaceholderChar.repeat(wordPickedArray.length);
 var wordPlaceholderArray = wordPlaceholder.split("");
+//================================= GLOBAL environment END =================================
 
 //================================= FUNCTIONS START =================================
 // function to initialize game elements
@@ -87,11 +93,13 @@ document.onkeyup = function(event) {
   // Captures the key press, converts it to lowercase, and saves it to a variable.
   var letter = event.key.toLowerCase();
 
+  // If user won or loss we need to start a new game and reinitialize variables and game board
   if (newGame) {
     initGame();
     newGame = false;
   }
 
+  // If guesses exceeded we need to tell the user they loss and update the gameboard to signify they loss
   if (guessesRemaining === 0) {
     document.getElementById("gameBanner").innerHTML =
       "Game over! Press any key to start new game.";
@@ -101,16 +109,17 @@ document.onkeyup = function(event) {
     alert("Game over!  Sorry too many guesses.");
     newGame = true;
   } else {
-    // if letter is a-z or A-Z AND its one character long (not tab, caps, etc) AND the letter was typed already
+    // if letter is a-z or A-Z && its one character long (not tab, caps, etc) && the letter was NOT typed already
     if (
-      letter.match(lettersAllowed) &&
+      letter.match(lettersAllowed) && // check the letter against the regEx to make sure it was an acceptable input
       letter.length === 1 &&
       lettersGuessed.indexOf(letter) === -1
     ) {
-      checkGuess(letter);
-      checkWinner(wordPickedArray, wordPlaceholderArray);
-      lettersGuessed.push(letter);
+      checkGuess(letter); // Is the letter inputted found in the word picked?
+      checkWinner(wordPickedArray, wordPlaceholderArray); // Do we have a winner?
+      lettersGuessed.push(letter); // Put the letter into the letterGuessed array to track the guesses
 
+      // This "if" statement setup tags to mark letters found "green" and letters NOT found with a "strike through"
       if (found) {
         tagOpen = "<font color=green>";
         tagClose = "</font>";
@@ -118,11 +127,11 @@ document.onkeyup = function(event) {
         tagOpen = "<strike>";
         tagClose = "</strike>";
       }
-      lettersGuessedOutput.push(tagOpen + letter + tagClose);
+      lettersGuessedOutput.push(tagOpen + letter + tagClose); // Need to have an "output" version of the array lettersGuessed that has HTML tags.
       document.getElementById(
         "lettersGuessed"
-      ).innerHTML = lettersGuessedOutput;
-      document.getElementById("guessesRemaining").innerHTML = guessesRemaining;
+      ).innerHTML = lettersGuessedOutput; // update game board with the letters guessed
+      document.getElementById("guessesRemaining").innerHTML = guessesRemaining; // update game board with guesses remaining
     }
   }
 };
